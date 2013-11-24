@@ -14,10 +14,9 @@ module.exports = function (grunt) {
   ]);
   
   grunt.registerTask('copy:components', [
-    'copy:lodash',
     'copy:angular',
-    'copy:angularUiRouter',
-    'copy:restangular',
+    'copy:angularRoute',
+    'copy:angularResource',
     'copy:fontAwesome'
   ]);
   
@@ -41,29 +40,23 @@ module.exports = function (grunt) {
     
     // COPY
     copy: {
-      lodash: {
-        expand: true,
-        cwd: '<%= config.components %>/lodash/dist/',
-        src: '*.js',
-        dest: '<%= config.scripts %>/vendors/lodash'
-      },
       angular: {
         expand: true,
         cwd: '<%= config.components %>/angular/',
         src: '*.js',
-        dest: '<%= config.scripts %>/vendors/angular'
+        dest: '<%= config.scripts %>/vendors/angular/'
       },
-      angularUiRouter: {
+      angularRoute: {
         expand: true,
-        cwd: '<%= config.components %>/angular-ui-router/release/',
+        cwd: '<%= config.components %>/angular-route/',
         src: '*.js',
-        dest: '<%= config.scripts %>/vendors/angular-ui/router'
+        dest: '<%= config.scripts %>/vendors/angular/'
       },
-      restangular: {
+      angularResource: {
         expand: true,
-        cwd: '<%= config.components %>/restangular/dist/',
+        cwd: '<%= config.components %>/angular-resource/',
         src: '*.js',
-        dest: '<%= config.scripts %>/vendors/restangular'
+        dest: '<%= config.scripts %>/vendors/angular/'
       },
       fontAwesome: {
         expand: true,

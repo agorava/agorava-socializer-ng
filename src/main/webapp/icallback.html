@@ -21,8 +21,12 @@
   <body>
     <script type="text/javascript">
         function moveOn() {
-            window.close();
-            window.opener.location.reload();
+            if (window.opener) {
+              window.close();
+              window.opener.location.reload();
+            } else {
+              window.location = '/agorava-socializer-20/';
+            }
         }
         moveOn();
     </script>

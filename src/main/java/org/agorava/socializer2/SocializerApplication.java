@@ -7,6 +7,6 @@ import javax.ws.rs.core.Application;
  * @author Antoine Sabot-Durand
  */
 
-@ApplicationPath("/rest")
-public class MyApplication extends Application {
+@ApplicationPath("/api")
+public class SocializerApplication extends Application {
 }

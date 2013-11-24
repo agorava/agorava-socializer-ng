@@ -5,19 +5,32 @@
     <title>Socializer 2.0</title>
     <meta name="charset" content="UTF-8">
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
-    
+    <base href="/agorava-socializer-20/" />
     <link rel="stylesheet" media="screen" href="resources/styles/app.css">
   </head>
   <body>
-    <h1>Socializer 2.0</h1>
-    <div ui-view></div>
+    <nav class="navbar navbar-default navbar-static-top" role="navigation">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/">Socializer 2.0</a>
+      </div>
+      
+      <ul class="nav navbar-nav navbar-right" ng-controller="ProvidersCtrl">
+        <li ng-repeat="provider in providers">
+          <span class="navbar-text fa fa-fw" ng-class="'fa-' + provider.toLowerCase()" ng-click="startDance(provider)"></span>
+        </li>
+        <li ng-if=""></li>
+      </ul>
+    </nav>
     
-    <script type="javascript" src="resources/scripts/vendors/lodash/lodash"></script>
-    <script type="javascript" src="resources/scripts/vendors/angular/angular.js"></script>
-    <script type="javascript" src="resources/scripts/vendors/angular-ui/angular-ui-router.js"></script>
-    <script type="javascript" src="resources/scripts/vendors/restangular/restangular.js"></script>
+    <div ng-view></div>
     
-    <script type="javascript" src="resources/scripts/app/config.js"></script>
-    <script type="javascript" src="resources/scripts/app/router.js"></script>
+    <script type="text/javascript" src="resources/scripts/vendors/angular/angular.js"></script>
+    <script type="text/javascript" src="resources/scripts/vendors/angular/angular-route.js"></script>
+    <script type="text/javascript" src="resources/scripts/vendors/angular/angular-resource.js"></script>
+    
+    <script type="text/javascript" src="resources/scripts/app/config.js"></script>
+    <script type="text/javascript" src="resources/scripts/app/router.js"></script>
+    <script type="text/javascript" src="resources/scripts/app/session.js"></script>
+    <script type="text/javascript" src="resources/scripts/app/social.js"></script>
   </body>
 </html>
