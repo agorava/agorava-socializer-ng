@@ -57,44 +57,31 @@
         <version.agorava>0.7.0</version.agorava>
     </properties>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.jboss.spec</groupId>
+                <artifactId>jboss-javaee-web-7.0</artifactId>
+                <version>1.0.0.Beta2</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <dependencies>
-        <!-- Java EE 7 -->
+
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>jaxrs-api</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
-            <version>1.1</version>
-            <scope>provided</scope>
         </dependency>
 
-        <dependency>
-            <groupId>javax.annotation</groupId>
-            <artifactId>javax.annotation-api</artifactId>
-            <version>1.2</version>
-            <scope>provided</scope>
-        </dependency>
 
-        <dependency>
-            <groupId>javax.ws.rs</groupId>
-            <artifactId>javax.ws.rs-api</artifactId>
-            <version>2.0</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>javax.websocket</groupId>
-            <artifactId>javax.websocket-api</artifactId>
-            <version>1.0</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>javax.ejb</groupId>
-            <artifactId>javax.ejb-api</artifactId>
-            <version>3.2</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <!-- Import Agorava of course -->
+        <!-- Import Agorava off course -->
         <dependency>
             <groupId>org.agorava</groupId>
             <artifactId>agorava-core-api</artifactId>
@@ -106,8 +93,16 @@
             <groupId>org.agorava</groupId>
             <artifactId>agorava-core-impl-cdi</artifactId>
             <version>${version.agorava}</version>
-            <scope>runtime</scope>
+            <scope>compile</scope>
         </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <scope>provided</scope>
+            <version>3.0.1</version>
+        </dependency>
+
 
         <dependency>
             <groupId>org.agorava</groupId>
@@ -184,13 +179,13 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
-            <!-- The JBoss AS plugin deploys your war to a local JBoss AS 
-                container -->
-            <!-- To use, run: mvn package jboss-as:deploy -->
+            <!-- The Wildfly plugin deploys your war to a local wildfly
+                container  or start an embedded one-->
+            <!-- To use, run: mvn package wildfly:run or mvn package wildfly:deploy -->
             <plugin>
-                <groupId>org.jboss.as.plugins</groupId>
-                <artifactId>jboss-as-maven-plugin</artifactId>
-                <version>8.0.0.Beta1</version>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <version>1.0.0.Beta1</version>
             </plugin>
         </plugins>
     </build>
