@@ -15,7 +15,8 @@
       </div>
       
       <ul class="nav navbar-nav navbar-right services" ng-controller="SocialCtrl">
-        <li ng-repeat="service in session.services | orberBy:'name':false" ng-click="service.hasOAuth ? selectService(service) : startDance(service)">
+        <li ng-repeat="service in session.services | orderBy:'name':false"
+            ng-click="service.hasOAuth ? selectService(service) : startDance(service)">
           <span class="navbar-text fa fa-fw" ng-class="'fa-' + service.name.toLowerCase() + (service.hasOAuth ? ' enabled' : ' disabled') + (service.name === session.currentService.name ? ' active' : '')" ></span>
         </li>
       </ul>
