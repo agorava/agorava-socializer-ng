@@ -14,11 +14,10 @@
         <a class="navbar-brand" href="/">Socializer 2.0</a>
       </div>
       
-      <ul class="nav navbar-nav navbar-right" ng-controller="ProvidersCtrl">
-        <li ng-repeat="provider in providers">
-          <span class="navbar-text fa fa-fw" ng-class="'fa-' + provider.toLowerCase()" ng-click="startDance(provider)"></span>
+      <ul class="nav navbar-nav navbar-right services" ng-controller="SocialCtrl">
+        <li ng-repeat="service in session.services | orberBy:'name':false" ng-click="service.hasOAuth ? selectService(service) : startDance(service)">
+          <span class="navbar-text fa fa-fw" ng-class="'fa-' + service.name.toLowerCase() + (service.hasOAuth ? ' enabled' : ' disabled') + (service.name === session.currentService.name ? ' active' : '')" ></span>
         </li>
-        <li ng-if=""></li>
       </ul>
     </nav>
     

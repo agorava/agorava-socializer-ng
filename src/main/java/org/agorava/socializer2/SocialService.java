@@ -1,5 +1,6 @@
 package org.agorava.socializer2;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -36,15 +37,49 @@ public class SocialService {
     }
     
     @GET
+    @Path("/services")
+    public List<OAuthSessionJson> getServices() {
+    	List<OAuthSessionJson> result = new ArrayList<OAuthSessionJson>();
+    	for(OAuthSession session : lifeCycleService.getAllActiveSessions()) {
+    		result.add(new OAuthSessionJson(session));
+    	}
+    	
+    	for(String serviceName: AgoravaContext.getListOfServices()) {
+    		boolean isIn = false;
+    		for(OAuthSessionJson session: result) {
+    			if (session.getName().equals(serviceName)) {
+    				isIn = true;
+    			}
+    		}
+    		
+    		if (!isIn) {
+    			result.add(new OAuthSessionJson("NULL", false, false, serviceName, null));
+    		}
+    	}
+    	
+    	return result;
+    }
+    
+    @GET
+    @Path("/services/current")
+    public OAuthSessionJson getCurrentService() {
+    	return new OAuthSessionJson(lifeCycleService.getCurrentSession());
+    }
+    
+    @GET
     @Path("/sessions")
-    public List<OAuthSession> getSessions() {
-    	return lifeCycleService.getAllActiveSessions();
+    public List<OAuthSessionJson> getSessions() {
+    	List<OAuthSessionJson> result = new ArrayList<OAuthSessionJson>();
+    	for(OAuthSession session : lifeCycleService.getAllActiveSessions()) {
+    		result.add(new OAuthSessionJson(session));
+    	}
+    	return result;
     }
     
     @GET
     @Path("/sessions/current")
-    public OAuthSession getCurrentSession() {
-    	return lifeCycleService.getCurrentSession();
+    public OAuthSessionJson getCurrentSession() {
+    	return new OAuthSessionJson(lifeCycleService.getCurrentSession());
     }
     
     @GET
@@ -58,6 +93,4 @@ public class SocialService {
     public String startDanceFor(@PathParam("service")String service) {
         return lifeCycleService.startDanceFor(service);
     }
-
-
 }

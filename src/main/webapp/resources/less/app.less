@@ -2,3 +2,21 @@
 @import "font-awesome/less/font-awesome";
 
 @fa-font-path:        "../fonts";
+
+.services {
+  li {
+    cursor: pointer;
+  }
+  
+  .disabled {
+    color: @brand-danger;
+  }
+  
+  .enabled {
+    color: @brand-warning;
+  
+    &.active {
+      color: @brand-success;
+    }
+  }
+}

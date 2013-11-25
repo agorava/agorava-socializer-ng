@@ -1,7 +1,7 @@
 app.factory('Session', ['$rootScope', 'Social', function ($rootScope, Social) {
   var user = {},
-      oauths = [],
-      currentOAuth;
+      services = [],
+      currentService;
   
   function refreshUser() {
     Social.currentUser().then(function (response) {
@@ -13,20 +13,20 @@ app.factory('Session', ['$rootScope', 'Social', function ($rootScope, Social) {
     });
   }
   
-  function refreshOAuths() {
-    Social.sessions().then(function (response) {
+  function refreshServices() {
+    Social.services().then(function (response) {
       console.log(response);
-      $rootScope.session.oauths = response.data || {};
+      $rootScope.session.services = response.data || {};
       console.log('new session',$rootScope.session);
     }, function (error) {
       console.log(error);
     });
   }
   
-  function refreshOAuth() {
-    Social.currentSession().then(function (response) {
+  function refreshCurrentService() {
+    Social.currentService().then(function (response) {
       console.log(response);
-      $rootScope.session.currentOAuth = response.data || {};
+      $rootScope.session.currentService = response.data || {};
       console.log('new session',$rootScope.session);
     }, function (error) {
       console.log(error);
@@ -35,17 +35,17 @@ app.factory('Session', ['$rootScope', 'Social', function ($rootScope, Social) {
   
   function refreshAll() {
     refreshUser();
-    refreshOAuths();
-    refreshOAuth();
+    refreshServices();
+    refreshCurrentService();
   }
   
   return {
     user: user,
-    oauths: oauths,
-    currentOAuth: currentOAuth,
+    services: services,
+    currentService: currentService,
     refreshUser: refreshUser,
-    refreshUser: refreshOAuths,
-    refreshOAuth: refreshOAuth,
+    refreshServices: refreshServices,
+    refreshCurrentService: refreshCurrentService,
     refreshAll: refreshAll
   };
 }]);
