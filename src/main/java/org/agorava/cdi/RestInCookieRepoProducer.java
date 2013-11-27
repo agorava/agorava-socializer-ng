@@ -2,27 +2,28 @@ package org.agorava.cdi;
 
 import org.agorava.AgoravaConstants;
 import org.agorava.api.atinject.Current;
-import org.agorava.api.oauth.OAuthSession;
+import org.agorava.api.storage.GlobalRepository;
 import org.agorava.api.storage.UserSessionRepository;
 import org.agorava.cdi.deltaspike.DifferentOrNull;
+import org.agorava.spi.UserSessionRepositoryResolver;
 import org.apache.deltaspike.core.api.config.ConfigProperty;
 import org.apache.deltaspike.core.api.exclude.Exclude;
 import org.apache.deltaspike.servlet.api.Web;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
-import javax.enterprise.inject.spi.InjectionPoint;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author Antoine Sabot-Durand
  */
 @RequestScoped
-@Exclude(onExpression = InApplicationProducer.RESOLVER + ",mycookie", interpretedBy = DifferentOrNull.class)
-public class MyInCookieProducer extends InRequestProducer {
+@Exclude(onExpression = InApplicationProducer.RESOLVER + ",rest", interpretedBy = DifferentOrNull.class)
+public class RestInCookieRepoProducer implements UserSessionRepositoryResolver {
 
     @Inject
     @ConfigProperty(name = AgoravaConstants.RESOLVER_COOKIE_LIFE_PARAM, defaultValue = "-1")
@@ -33,7 +34,14 @@ public class MyInCookieProducer extends InRequestProducer {
     @Web
     private HttpServletResponse response;
 
-    @Override
+    @Inject
+    @Web
+    private HttpServletRequest request;
+
+    @Inject
+    private GlobalRepository globalRepository;
+
+
     protected String getRepoId() {
         String id;
         if (request.getCookies() != null)
@@ -67,15 +75,5 @@ public class MyInCookieProducer extends InRequestProducer {
     }
 
 
-    @Produces
-    public OAuthSession resolveSession(InjectionPoint ip, @Current UserSessionRepository repository) {
-        return super.resolveSession(ip, repository);
-    }
 
-    @Produces
-    @Named
-    @Override
-    public OAuthSession getCurrentSession(@Current UserSessionRepository repository) {
-        return super.getCurrentSession(repository);
-    }
 }
