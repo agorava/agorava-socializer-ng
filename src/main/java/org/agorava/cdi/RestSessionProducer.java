@@ -23,7 +23,7 @@ public class RestSessionProducer implements SessionResolver {
 
     @Override
     @Produces
-    public OAuthSession getCurrentSession(UserSessionRepository repository) {
+    public OAuthSession getCurrentSession(@Current UserSessionRepository repository) {
         return repository.getCurrent();
     }
 
