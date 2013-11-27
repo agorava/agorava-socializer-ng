@@ -26,10 +26,6 @@ import java.util.Map;
 public class SocialService {
 
     @Inject
-    @Current
-    OAuthSession currentSession;
-
-    @Inject
     OAuthLifeCycleService lifeCycleService;
 
     @Inject
@@ -42,8 +38,8 @@ public class SocialService {
     @GET
     @Path("/users/current")
     public UserProfile getCurrentProfile() {
-        System.out.println(currentSession);
-        return currentSession.getUserProfile();
+        System.out.println(repo.getCurrent());
+        return repo.getCurrent().getUserProfile();
     }
 
     @GET
@@ -54,7 +50,7 @@ public class SocialService {
         for (String serviceName : AgoravaContext.getListOfServices()) {
             Map<String, OAuthSessionJson> n2s = new HashMap<String, OAuthSessionJson>();
             for (OAuthSession session : repo.getAll()) {
-                if (session.getName().equals(serviceName)) {
+                if (session.getServiceName().equals(serviceName)) {
                     n2s.put(session.getId(), new OAuthSessionJson(session));
                 }
             }
