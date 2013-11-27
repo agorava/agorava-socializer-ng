@@ -14,7 +14,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Antoine Sabot-Durand
@@ -46,25 +48,18 @@ public class SocialService {
 
     @GET
     @Path("/services")
-    public List<OAuthSessionJson> getServices() {
-        List<OAuthSessionJson> result = new ArrayList<OAuthSessionJson>();
-        for (OAuthSession session : lifeCycleService.getAllActiveSessions()) {
-            result.add(new OAuthSessionJson(session));
-        }
+    public Map<String, ServiceStructure> getServices() {
+        Map<String, ServiceStructure> result = new HashMap<String, ServiceStructure>();
 
         for (String serviceName : AgoravaContext.getListOfServices()) {
-            boolean isIn = false;
-            for (OAuthSessionJson session : result) {
+            Map<String, OAuthSessionJson> n2s = new HashMap<String, OAuthSessionJson>();
+            for (OAuthSession session : repo.getAll()) {
                 if (session.getName().equals(serviceName)) {
-                    isIn = true;
+                    n2s.put(session.getId(), new OAuthSessionJson(session));
                 }
             }
-
-            if (!isIn) {
-                result.add(new OAuthSessionJson(OAuthSession.NULL));
-            }
+            result.put(serviceName, new ServiceStructure(serviceName, n2s));
         }
-
         return result;
     }
 
