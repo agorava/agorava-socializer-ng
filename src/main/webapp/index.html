@@ -15,9 +15,29 @@
       </div>
       
       <ul class="nav navbar-nav navbar-right services" ng-controller="SocialCtrl">
-        <li ng-repeat="service in session.services | orderBy:'name':false"
-            ng-click="service.hasOAuth ? selectService(service) : startDance(service)">
-          <span class="navbar-text fa fa-fw" ng-class="'fa-' + service.name.toLowerCase() + (service.hasOAuth ? ' enabled' : ' disabled') + (service.name === session.currentService.name ? ' active' : '')" ></span>
+        <li data-toggle="dropdown" auto-dropdown ng-repeat="(name, service) in session.services | orderBy:'name':false">
+          <span class="navbar-text fa fa-fw" ng-class="'fa-' + service.name.toLowerCase() + (service.sessions.length ? ' enabled' : ' disabled')" ></span>
+          <ul class="dropdown-menu">
+            <li ng-if="service.sessions.length">
+              <a>
+                All 
+                <span class="fa fa-fw fa-refresh" ng-click="refresh(service)"></span>
+              </a>
+            </li>
+            <li ng-repeat="oauth in service.sessions">
+              <a>
+                {{ oauth.user.name }} 
+                <span class="fa fa-fw fa-refresh" ng-click="refresh(oauth)"></span>
+              </a>
+            </li>
+            <li class="divider" ng-if="service.sessions.length"></li>
+            <li>
+              <a ng-click="startDance(service)">
+                Add new 
+                <span class="fa fa-fw fa-plus"></span>
+              </a>
+            </li>
+          </ul>
         </li>
       </ul>
     </nav>

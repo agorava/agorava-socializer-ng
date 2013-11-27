@@ -10,13 +10,17 @@ var app = angular.module('socializer2', ['ngRoute', 'ngResource'])
     $rootScope.$on('sessionRefreshUser', function () {
       Session.refreshUser();
     });
-    
-    $rootScope.$on('sessionRefreshOAuths', function () {
-      Session.refreshOAuths();
+
+    $rootScope.$on('sessionRefreshServices', function () {
+      Session.refreshServices();
+    });
+
+    $rootScope.$on('sessionRefreshService', function (e, service) {
+      Session.refreshService(service);
     });
     
-    $rootScope.$on('sessionRefreshOAuth', function () {
-      Session.refreshOAuths();
+    $rootScope.$on('sessionRefreshOAuth', function (e, session) {
+      Session.refreshOAuth(session);
     });
     
     $rootScope.$on('sessionRefreshAll', function () {
@@ -25,3 +29,18 @@ var app = angular.module('socializer2', ['ngRoute', 'ngResource'])
     
     $rootScope.$emit('sessionRefreshAll');
   }]);
+
+app.directive('autoDropdown', function () {
+  return {
+    restrict: 'A',
+    link: function ($scope, $elem) {
+      $elem.on('mouseenter', function () {
+        $elem.addClass('open');
+      });
+
+      $elem.on('mouseleave', function () {
+        $elem.removeClass('open');
+      });
+    }
+  };
+});

@@ -1,8 +1,7 @@
 app.factory('Session', ['$rootScope', 'Social', function ($rootScope, Social) {
   var user = {},
-      services = [],
-      currentService;
-  
+      services = {};
+
   function refreshUser() {
     Social.currentUser().then(function (response) {
       console.log(response);
@@ -22,11 +21,21 @@ app.factory('Session', ['$rootScope', 'Social', function ($rootScope, Social) {
       console.log(error);
     });
   }
-  
-  function refreshCurrentService() {
-    Social.currentService().then(function (response) {
+
+   function refreshService(service) {
+    Social.service(service).then(function (response) {
       console.log(response);
-      $rootScope.session.currentService = response.data || {};
+      services[service.name] = response.data || {};
+      console.log('new session',$rootScope.session);
+    }, function (error) {
+      console.log(error);
+    });
+  }
+
+  function refreshOAuth(session) {
+    Social.session(session).then(function (response) {
+      console.log(response);
+      services[session.service][session.id] = response.data || {};
       console.log('new session',$rootScope.session);
     }, function (error) {
       console.log(error);
@@ -36,16 +45,15 @@ app.factory('Session', ['$rootScope', 'Social', function ($rootScope, Social) {
   function refreshAll() {
     refreshUser();
     refreshServices();
-    refreshCurrentService();
   }
   
   return {
     user: user,
     services: services,
-    currentService: currentService,
     refreshUser: refreshUser,
     refreshServices: refreshServices,
-    refreshCurrentService: refreshCurrentService,
+    refreshService: refreshService,
+    refreshOAuth: refreshOAuth,
     refreshAll: refreshAll
   };
 }]);

@@ -3,10 +3,9 @@ app.factory('Social', ['$http', 'Config', function ($http, Config) {
     all: function () { return $http.get(Config.apiPath + '/providers'); },
     currentUser: function () { return $http.get(Config.apiPath + '/users/current'); },
     startDance: function (serviceName) { return $http.get(Config.apiPath + '/providers/' + serviceName + '/startDance'); },
-    sessions: function () { return $http.get(Config.apiPath + '/sessions'); },
-    currentSession: function () { return $http.get(Config.apiPath + '/sessions/current'); },
     services: function () { return $http.get(Config.apiPath + '/services'); },
-    currentService: function () { return $http.get(Config.apiPath + '/services/current'); }
+    session: function (session) { return $http.get(Config.apiPath + '/session/' + session.id); },
+    serviceSessions: function (service) { return $http.get(Config.apiPath + '/services/' + service.name + "/sessions"); }
   };
 }]);
 
@@ -19,7 +18,11 @@ app.controller('SocialCtrl', ['$scope', '$location', 'Social', function ($scope,
     });
   };
   
-  $scope.selectService = function (service) {
-    console.log('select', service);
+  $scope.refreshService = function (service) {
+    $scope.session.refreshService(service);
+  };
+
+  $scope.refreshSession = function (session) {
+    $scope.session.refreshOAuth(session);
   };
 }]);

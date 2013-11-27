@@ -17,6 +17,7 @@ module.exports = function (grunt) {
     'copy:angular',
     'copy:angularRoute',
     'copy:angularResource',
+    'copy:lodash',
     'copy:fontAwesome'
   ]);
   
@@ -57,6 +58,12 @@ module.exports = function (grunt) {
         cwd: '<%= config.components %>/angular-resource/',
         src: '*.js',
         dest: '<%= config.scripts %>/vendors/angular/'
+      },
+      lodash: {
+        expand: true,
+        cwd: '<%= config.components %>/lodash/dist/',
+        src: '*.js',
+        dest: '<%= config.scripts %>/vendors/lodash/'
       },
       fontAwesome: {
         expand: true,
