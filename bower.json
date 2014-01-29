@@ -3,12 +3,12 @@
   "dependencies": {
     "bootstrap": "~3.0.x",
     "font-awesome": "~4.0.x",
-    "angular": "1.2.3",
-    "angular-route": "1.2.3",
-    "angular-resource": "1.2.3",
+    "angular": "1.2.10",
+    "angular-route": "1.2.10",
+    "angular-resource": "1.2.10",
     "lodash": "2.4.0"
   },
   "resolutions": {
-    "angular": "1.2.3"
+    "angular": "1.2.10"
   }
 }

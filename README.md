@@ -29,4 +29,8 @@ grunt
 
 You know... just push the stuff as a war to your server...
 
+```shell
+mvn clean wildfly:run
+```
+
 TODO by Antoine for more infos.

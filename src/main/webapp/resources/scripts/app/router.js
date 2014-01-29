@@ -5,6 +5,7 @@ app.config(['$locationProvider', '$routeProvider', 'Config', function($locationP
   
   $routeProvider
     .when('/', {
+      controller: 'TimelineCtrl',
       templateUrl: Config.templatesPath + '/home.html'
     });
 }]);
