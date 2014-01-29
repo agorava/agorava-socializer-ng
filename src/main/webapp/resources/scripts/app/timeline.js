@@ -1,11 +1,15 @@
-app.controller('TimelineCtrl', ['$scope', 'Social', '$q',  function ($scope, Social,$q) {
+app.controller('TimelineCtrl', ['$scope', 'Social', '$q',  function ($scope, Social, $q) {
   $scope.timeline = [];
 
   $scope.$on('refreshTimeline', function () {
     console.log('refreshTimeline');
-    Social.twitter().then(function (response) {
-      console.log('data', response);
-      $scope.timeline = response.data;
+    $q.all([Social.twitter(), Social.facebook()]).then(function (responses) {
+      console.log('data', responses);
+      var twTL = responses[0];
+      var fbTL = responses[1];
+      console.log(twTL);
+      console.log(fbTL);
+      $scope.timeline = twTL.concat(fbTL);
     });
   });
 
