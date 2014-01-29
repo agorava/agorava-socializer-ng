@@ -1,4 +1,4 @@
-app.controller('TimelineCtrl', ['$scope', 'Social', function ($scope, Social) {
+app.controller('TimelineCtrl', ['$scope', 'Social', '$q',  function ($scope, Social,$q) {
   $scope.timeline = [];
 
   $scope.$on('refreshTimeline', function () {
