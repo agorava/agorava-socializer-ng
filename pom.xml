@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-  ~ Copyright 2013 Agorava
+  ~ Copyright 2015 Agorava
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -20,12 +20,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>agorava-socializer2</artifactId>
+    <artifactId>agorava-socializer-ng</artifactId>
     <packaging>war</packaging>
-    <name>Agorava Socializer 2.0</name>
+    <name>Agorava Socializer NG</name>
     <groupId>org.agorava</groupId>
     <version>0.7.0</version>
-    <description>Demonstration of Agorava in a Java EE application.</description>
+    <description>Demonstration of Agorava with AngularJS.</description>
     <url>http://agorava.org</url>
     <inceptionYear>2013</inceptionYear>
 
@@ -45,6 +45,14 @@
             <roles>
                 <role>JavaScript turtle</role>
             </roles>
+        <developer>
+            <name>Werner Keil</name>
+            <email>werner@catmedia.us</email>
+            <timezone>CET</timezone>
+            <roles>
+                <role>Java Ninja</role>
+            </roles>
+        </developer>
         </developer>
     </developers>
 
@@ -235,9 +243,9 @@
     </profiles>
 
     <scm>
-        <connection>scm:git:git://github.com/agorava/agorava-socializer-20.git</connection>
-        <developerConnection>scm:git:git@github.com:agorava/agorava-socializer-20.git</developerConnection>
-        <url>https://github.com/agorava/agorava-socializer-20</url>
+        <connection>scm:git:git://github.com/agorava/agorava-socializer-ng.git</connection>
+        <developerConnection>scm:git:git@github.com:agorava/agorava-socializer-ng.git</developerConnection>
+        <url>https://github.com/agorava/agorava-socializer-ng</url>
         <tag>HEAD</tag>
     </scm>
 </project>
